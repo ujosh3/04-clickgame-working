@@ -9,23 +9,46 @@ function buy(store) {
         alert("Insufficient funds");
         return;
     }
-
+    
+    store.setAttribute("cost", cost*1.4);
+    store.children[3].innerHTML = `${(cost*1.4).toFixed(0)} Gold`
     changeScore(-1 * cost);
 
     // If Super-Gompei already exists
-    var superGompei = document.getElementById("super-gompei");
+    var superGompei = document.getElementById("super-mine");
     if (store.getAttribute("name") === "Super Mine" && superGompei !== null) {
-        superGompei.setAttribute("reap", (parseInt(superGompei.getAttribute("reap")) + 100));
+        superGompei.setAttribute("reap", (parseInt(superGompei.getAttribute("reap")) + 3000));
+        return;
+    }
+    var barb = document.getElementById("barb");
+    if (store.getAttribute("name") === "Barbarian" && barb !== null) {
+        barb.setAttribute("reap", (parseInt(barb.getAttribute("reap")) + 50));
+        return;
+    }
+    var archer = document.getElementById("archer");
+    if (store.getAttribute("name") === "Archer" && archer !== null) {
+        archer.setAttribute("reap", (parseInt(archer.getAttribute("reap")) + 50));
+        return;
+    }
+    var mine = document.getElementById("mine");
+    if (store.getAttribute("name") === "Gold Mine" && mine !== null) {
+        mine.setAttribute("reap", (parseInt(mine.getAttribute("reap")) + 125));
         return;
     }
 
     var widget = document.createElement("div");
-    if (store.getAttribute("name") == "Super-Gompei")
-        widget.id = "super-gompei";
+    if (store.getAttribute("name") == "Super Mine")
+        widget.id = "super-mine";
+    if (store.getAttribute("name") == "Barbarian")
+        widget.id = "barb";
+    if (store.getAttribute("name") == "Archer")
+        widget.id = "archer";
+    if (store.getAttribute("name") == "Gold Mine")
+        widget.id = "mine";
     widget.classList.add("widget");
     fillWidget(store, widget);
-    const audio3 = new Audio('build.mp3');
-    audio3.play();
+    const build = new Audio('build.mp3');
+    build.play();
     widget.onclick = () => {
         harvest(widget);
     }
@@ -38,8 +61,8 @@ function harvest(widget) {
     if (widget.hasAttribute("harvesting")) return;
     // Set harvesting flag
     if (widget.getAttribute("name") == "Barbarian") {
-        const audio2 = new Audio('battle.mp3');
-        audio2.play();
+        const barb = new Audio('battle.mp3');
+        barb.play();
     }
     if (widget.getAttribute("name") == "Archer") {
         const archer = new Audio('archer.mp3');

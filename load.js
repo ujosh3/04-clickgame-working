@@ -65,3 +65,31 @@ function fillWidget(store, widget) {
     overlaySlide.style.animationDuration = `${store.getAttribute("cooldown")}s`;
     widget.appendChild(overlaySlide);
 }
+
+function refreshStore() {
+    let widget = document.createElement("div");
+    widget.className = "widget";
+    store.appendChild(widget);
+
+    fillWidget(store, widget);
+
+    let nameTag = document.createElement("p");
+    nameTag.innerHTML = `${store.getAttribute("name")}`;
+    store.appendChild(nameTag);
+
+    let priceTag = document.createElement("p");
+    priceTag.innerHTML = `${store.getAttribute("cost")} gold`;
+    store.appendChild(priceTag);
+
+    let reapTag = document.createElement("p");
+    reapTag.innerHTML = `+${store.getAttribute("reap")} gold`;
+    store.appendChild(reapTag);
+
+    let cooldownTag = document.createElement("p");
+    cooldownTag.innerHTML = `${store.getAttribute("cooldown")}s`;
+    store.appendChild(cooldownTag);
+
+    let overlayCost = document.createElement("div");
+    overlayCost.className = "overlay-cost";
+    store.appendChild(overlayCost);
+}
